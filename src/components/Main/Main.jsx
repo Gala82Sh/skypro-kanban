@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
-import { cardList } from '../../../data.js';
+import { cardList } from '../../../data';
 import Column from '../Column/Column';
+import {
+  StyledMain,
+  MainBlock,
+  MainContent,
+  LoadingText,
+} from './Main.styled';
 
 function Main() {
   const [loading, setLoading] = useState(true);
   const [cards, setCards] = useState([]);
 
-  // имитация загрузки данных
   useEffect(() => {
     const timer = setTimeout(() => {
       setCards(cardList);
       setLoading(false);
-    }, 2000); 
+    }, 2000);
 
-    return () => clearTimeout(timer); 
+    return () => clearTimeout(timer);
   }, []);
 
-  // группировка карточек по статусу
   const cardsByStatus = {
     'Без статуса': cards.filter(card => card.status === 'Без статуса'),
     'Нужно сделать': cards.filter(card => card.status === 'Нужно сделать'),
@@ -27,26 +31,23 @@ function Main() {
 
   const columnTitles = ['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'];
 
-  // сообщение о загрузке
   if (loading) {
     return (
-      <main className="main">
+      <StyledMain>
         <div className="container">
-          <div className="main__block">
-            <div style={{ textAlign: 'center', padding: '50px', fontSize: '18px', color: '#94A6BE' }}>
-              Данные загружаются...
-            </div>
-          </div>
+          <MainBlock>
+            <LoadingText>Данные загружаются...</LoadingText>
+          </MainBlock>
         </div>
-      </main>
+      </StyledMain>
     );
   }
 
   return (
-    <main className="main">
+    <StyledMain>
       <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+        <MainBlock>
+          <MainContent>
             {columnTitles.map((title) => (
               <Column 
                 key={title} 
@@ -54,10 +55,10 @@ function Main() {
                 cards={cardsByStatus[title]} 
               />
             ))}
-          </div>
-        </div>
+          </MainContent>
+        </MainBlock>
       </div>
-    </main>
+    </StyledMain>
   );
 }
 

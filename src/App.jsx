@@ -1,10 +1,8 @@
-// Домашняя работа по курсу React
-import './App.css'
-import Header from './components/Header/Header'
-import Main from './components/Main/Main'
-import PopNewCard from './components/popups/PopNewCard/PopNewCard'
-import PopBrowse from './components/popups/PopBrowse/PopBrowse'
-import PopUser from './components/popups/PopUser/PopUser'
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+import PopNewCard from './components/popups/PopNewCard/PopNewCard';
+import PopBrowse from './components/popups/PopBrowse/PopBrowse';
+import PopUser from './components/popups/PopUser/PopUser';
 
 function App() {
   return (
@@ -15,7 +13,7 @@ function App() {
       <Header />
       <Main />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
