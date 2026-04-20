@@ -1,20 +1,18 @@
-import Card from '../Card/Card'
+import Card from '../Card/Card';
 
-function Column({ title }) {
-  const cards = [1, 2, 3, 4, 5]
-
+function Column({ title, cards }) {
   return (
     <div className="main__column column">
       <div className="column__title">
         <p>{title}</p>
       </div>
       <div className="cards">
-        {cards.map((item) => (
-          <Card key={item} />
+        {cards && cards.map((card) => (
+          <Card key={card.id} card={card} />
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default Column
+export default Column;
