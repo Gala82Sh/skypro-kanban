@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   StyledHeader,
   HeaderBlock,
@@ -16,6 +16,14 @@ import {
 
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const name = localStorage.getItem('userName');
+    if (name) {
+      setUserName(name);
+    }
+  }, []);
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
@@ -37,14 +45,14 @@ function Header() {
           </div>
           <Nav>
             <BtnMainNew>
-             <Link to="/card/add" onClick={() => console.log('Клик по кнопке Создать')}>Создать новую задачу</Link>
+              <Link to="/card/add">Создать новую задачу</Link>
             </BtnMainNew>
             <User onClick={togglePopup}>
-              Ivan Ivanov
+              {userName || 'Пользователь'}
             </User>
             <PopUserSet $isOpen={isPopupOpen}>
-              <PopUserName>Ivan Ivanov</PopUserName>
-              <PopUserMail>ivan.ivanov@gmail.com</PopUserMail>
+              <PopUserName>{userName || 'Пользователь'}</PopUserName>
+              <PopUserMail>{localStorage.getItem('userEmail') || 'user@example.com'}</PopUserMail>
               <PopUserTheme>
                 <p>Темная тема</p>
                 <input type="checkbox" className="checkbox" name="checkbox" />

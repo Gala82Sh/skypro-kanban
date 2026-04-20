@@ -1,15 +1,17 @@
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../services/auth';
 
 function ExitPage({ onLogout }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    logout(); 
     onLogout(); 
     navigate('/login');
   };
 
   const handleCancel = () => {
-    navigate(-1); 
+    navigate(-1);
   };
 
   return (

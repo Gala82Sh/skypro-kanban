@@ -1,26 +1,36 @@
 import { useState, useEffect } from 'react';
-import { cardList } from '../../data';
+import { fetchTasks } from '../services/api';
 import Column from '../components/Column/Column';
 import { StyledMain, MainBlock, MainContent, LoadingText } from '../components/Main/Main.styled';
 
 function MainPage() {
   const [loading, setLoading] = useState(true);
-  const [cards, setCards] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCards(cardList);
-      setLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
+    loadTasks();
   }, []);
 
-  const cardsByStatus = {
-    'Без статуса': cards.filter(card => card.status === 'Без статуса'),
-    'Нужно сделать': cards.filter(card => card.status === 'Нужно сделать'),
-    'В работе': cards.filter(card => card.status === 'В работе'),
-    'Тестирование': cards.filter(card => card.status === 'Тестирование'),
-    'Готово': cards.filter(card => card.status === 'Готово'),
+  const loadTasks = async () => {
+    try {
+      setLoading(true);
+      const tasksData = await fetchTasks();
+      setTasks(tasksData);
+      setError('');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const tasksByStatus = {
+    'Без статуса': tasks.filter(task => task.status === 'Без статуса'),
+    'Нужно сделать': tasks.filter(task => task.status === 'Нужно сделать'),
+    'В работе': tasks.filter(task => task.status === 'В работе'),
+    'Тестирование': tasks.filter(task => task.status === 'Тестирование'),
+    'Готово': tasks.filter(task => task.status === 'Готово'),
   };
 
   const columnTitles = ['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'];
@@ -30,7 +40,19 @@ function MainPage() {
       <StyledMain>
         <div className="container">
           <MainBlock>
-            <LoadingText>Данные загружаются...</LoadingText>
+            <LoadingText>Загрузка задач...</LoadingText>
+          </MainBlock>
+        </div>
+      </StyledMain>
+    );
+  }
+
+  if (error) {
+    return (
+      <StyledMain>
+        <div className="container">
+          <MainBlock>
+            <LoadingText style={{ color: 'red' }}>Ошибка: {error}</LoadingText>
           </MainBlock>
         </div>
       </StyledMain>
@@ -43,7 +65,7 @@ function MainPage() {
         <MainBlock>
           <MainContent>
             {columnTitles.map((title) => (
-              <Column key={title} title={title} cards={cardsByStatus[title]} />
+              <Column key={title} title={title} cards={tasksByStatus[title]} />
             ))}
           </MainContent>
         </MainBlock>

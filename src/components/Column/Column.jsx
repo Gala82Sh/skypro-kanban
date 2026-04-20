@@ -12,8 +12,9 @@ function Column({ title, cards }) {
         <p>{title}</p>
       </ColumnTitle>
       <CardsContainer>
+        {}
         {cards && cards.map((card) => (
-          <Card key={card.id} card={card} />
+          <Card key={card._id} card={card} />
         ))}
       </CardsContainer>
     </ColumnContainer>

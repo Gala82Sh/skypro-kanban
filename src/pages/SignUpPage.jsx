@@ -1,17 +1,32 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signUp } from '../services/auth';
 
 function SignUpPage({ onLogin }) {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name && email && password) {
-      onLogin(); 
-      navigate('/');
+    setError('');
+    setLoading(true);
+
+     console.log('Отправка данных регистрации:', { name, login, password });
+
+    try {
+      const userData = await signUp({ name, login, password });
+      if (userData) {
+        onLogin();
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,13 +45,15 @@ function SignUpPage({ onLogin }) {
                 placeholder="Имя"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required
               />
               <input
                 className="modal__input"
                 type="email"
                 placeholder="Эл. почта"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+                required
               />
               <input
                 className="modal__input"
@@ -44,12 +61,14 @@ function SignUpPage({ onLogin }) {
                 placeholder="Пароль"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
-              <button className="modal__btn-signup-ent _hover01" type="submit">
-                Зарегистрироваться
+              {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
+              <button className="modal__btn-signup-ent _hover01" type="submit" disabled={loading}>
+                {loading ? 'Регистрация...' : 'Зарегистрироваться'}
               </button>
               <div className="modal__form-group">
-                <p>Уже есть аккаунт? <a href="/login">Войдите здесь</a></p>
+                <p>Уже есть аккаунт? <Link to="/login">Войдите здесь</Link></p>
               </div>
             </form>
           </div>

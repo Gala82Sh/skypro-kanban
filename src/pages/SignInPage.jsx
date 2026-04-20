@@ -1,17 +1,29 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signIn } from '../services/auth';
 
 function SignInPage({ onLogin }) {
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (email && password) {
-      onLogin(); 
-      navigate('/'); 
+    setError('');
+    setLoading(true);
+
+    try {
+      const userData = await signIn({ login, password });
+      if (userData) {
+        onLogin(); 
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -28,8 +40,9 @@ function SignInPage({ onLogin }) {
                 className="modal__input"
                 type="email"
                 placeholder="Эл. почта"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={login}
+                onChange={(e) => setLogin(e.target.value)}
+                required
               />
               <input
                 className="modal__input"
@@ -37,13 +50,15 @@ function SignInPage({ onLogin }) {
                 placeholder="Пароль"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
-              <button className="modal__btn-enter _hover01" type="submit">
-                Войти
+              {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
+              <button className="modal__btn-enter _hover01" type="submit" disabled={loading}>
+                {loading ? 'Вход...' : 'Войти'}
               </button>
               <div className="modal__form-group">
                 <p>Нужно зарегистрироваться?</p>
-                <a href="/register">Регистрируйтесь здесь</a>
+                <Link to="/register">Регистрируйтесь здесь</Link>
               </div>
             </form>
           </div>
