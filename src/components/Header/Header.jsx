@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
   StyledHeader,
@@ -25,18 +26,18 @@ function Header() {
       <div className="container">
         <HeaderBlock>
           <Logo className="_show _light">
-            <a href="/" target="_self">
+            <Link to="/">
               <img src="/images/logo.png" alt="logo" />
-            </a>
+            </Link>
           </Logo>
           <div className="header__logo _dark">
-            <a href="/" target="_self">
+            <Link to="/">
               <img src="/images/logo_dark.png" alt="logo" />
-            </a>
+            </Link>
           </div>
           <Nav>
             <BtnMainNew>
-              <a href="#popNewCard">Создать новую задачу</a>
+             <Link to="/card/add" onClick={() => console.log('Клик по кнопке Создать')}>Создать новую задачу</Link>
             </BtnMainNew>
             <User onClick={togglePopup}>
               Ivan Ivanov
@@ -49,7 +50,7 @@ function Header() {
                 <input type="checkbox" className="checkbox" name="checkbox" />
               </PopUserTheme>
               <PopUserBtn>
-                <a href="#popExit">Выйти</a>
+                <Link to="/exit">Выйти</Link>
               </PopUserBtn>
             </PopUserSet>
           </Nav>
