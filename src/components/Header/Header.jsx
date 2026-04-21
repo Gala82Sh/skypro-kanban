@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useAuth } from "../../contexts/AuthContext";
 import {
   StyledHeader,
   HeaderBlock,
@@ -16,18 +17,13 @@ import {
 
 function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [userName, setUserName] = useState('');
-
-  useEffect(() => {
-    const name = localStorage.getItem('userName');
-    if (name) {
-      setUserName(name);
-    }
-  }, []);
+  const { userName, isAuth } = useAuth();
 
   const togglePopup = () => {
     setIsPopupOpen(!isPopupOpen);
   };
+
+  if (!isAuth) return null;
 
   return (
     <StyledHeader>

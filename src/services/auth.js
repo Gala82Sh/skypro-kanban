@@ -74,3 +74,22 @@ export function getToken() {
 export function isAuthenticated() {
   return !!getToken();
 }
+export function getUserName() {
+  return localStorage.getItem('userName');
+}
+
+export function getUserEmail() {
+  return localStorage.getItem('userEmail');
+}
+
+export function setAuthData(token, name, email) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('userName', name);
+  localStorage.setItem('userEmail', email);
+}
+
+export function clearAuthData() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userName');
+  localStorage.removeItem('userEmail');
+}

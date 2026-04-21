@@ -1,26 +1,26 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from '../services/auth';
+import { useAuth } from '../contexts/AuthContext';
 
-function SignUpPage({ onLogin }) {
+function SignUpPage() {
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login: authLogin } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-     console.log('Отправка данных регистрации:', { name, login, password });
-
     try {
       const userData = await signUp({ name, login, password });
       if (userData) {
-        onLogin();
+        authLogin(userData.token, userData.name, login);
         navigate('/');
       }
     } catch (err) {

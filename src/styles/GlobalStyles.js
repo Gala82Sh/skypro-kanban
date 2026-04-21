@@ -320,6 +320,22 @@ export const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
+   .modal__btn-signup-ent {
+    width: 100%;
+    height: 30px;
+    background-color: #565EEF;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+  }
+
+  .modal__btn-signup-ent:hover {
+    background-color: #33399b;
+  }
+
   .modal__btn-enter:hover {
     background-color: #33399b;
   }
@@ -337,4 +353,19 @@ export const GlobalStyles = createGlobalStyle`
   .modal__form-group a {
     text-decoration: underline;
   }
+     .wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container-signin,
+  .container-signup {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px); 
+  }
+    
 `;

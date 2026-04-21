@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../services/auth';
+import { useAuth } from '../contexts/AuthContext';
 
-function SignInPage({ onLogin }) {
+function SignInPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login: authLogin } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ function SignInPage({ onLogin }) {
     try {
       const userData = await signIn({ login, password });
       if (userData) {
-        onLogin(); 
+        authLogin(userData.token, userData.name, login);
         navigate('/');
       }
     } catch (err) {
