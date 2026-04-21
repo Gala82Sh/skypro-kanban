@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchTaskById } from '../services/api';
+import { formatDate } from '../utils/dateUtils';
 
 function CardPage() {
   const { id } = useParams(); 
@@ -55,12 +56,7 @@ function CardPage() {
   }
 
   
-  const formatDate = (dateString) => {
-    if (!dateString) return 'Дата не указана';
-    const date = new Date(dateString);
-    return `${date.getDate().toString().padStart(2, '0')}.${(date.getMonth() + 1).toString().padStart(2, '0')}.${date.getFullYear().toString().slice(-2)}`;
-  };
-
+  
   return (
     <div className="pop-browse" style={{ display: 'block' }}>
       <div className="pop-browse__container">
