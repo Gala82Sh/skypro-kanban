@@ -1,39 +1,33 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createTask } from '../services/api';
+import { useTasks } from '../contexts/TasksContext';
 
 function AddCardPage() {
   const navigate = useNavigate();
+  const { addTask, loading } = useTasks();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [topic, setTopic] = useState('Web Design'); 
+  const [topic, setTopic] = useState('Web Design');
   const [status, setStatus] = useState('Без статуса');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
-
-   
-    const date = new Date().toISOString();
 
     const taskData = {
       title: title || 'Новая задача',
       topic,
       status,
       description: description || '',
-      date,
+      date: new Date().toISOString(),
     };
 
     try {
-      await createTask(taskData);
+      await addTask(taskData);
       navigate('/');
     } catch (err) {
       setError(err.message);
-    } finally {
-      setLoading(false);
     }
   };
 

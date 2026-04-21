@@ -1,29 +1,14 @@
-import { useState, useEffect } from 'react';
-import { fetchTasks } from '../services/api';
+import { useEffect } from 'react';
+import { useTasks } from '../contexts/TasksContext';
 import Column from '../components/Column/Column';
 import { StyledMain, MainBlock, MainContent, LoadingText } from '../components/Main/Main.styled';
 
 function MainPage() {
-  const [loading, setLoading] = useState(true);
-  const [tasks, setTasks] = useState([]);
-  const [error, setError] = useState('');
+  const { tasks, loading, error, loadTasks } = useTasks();
 
   useEffect(() => {
     loadTasks();
   }, []);
-
-  const loadTasks = async () => {
-    try {
-      setLoading(true);
-      const tasksData = await fetchTasks();
-      setTasks(tasksData);
-      setError('');
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const tasksByStatus = {
     'Без статуса': tasks.filter(task => task.status === 'Без статуса'),

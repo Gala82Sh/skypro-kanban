@@ -1,39 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchTaskById } from '../services/api';
+import { useTasks } from '../contexts/TasksContext';
 import { formatDate } from '../utils/dateUtils';
 
 function CardPage() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
+  const { tasks, loading, error } = useTasks();
   const [task, setTask] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    if (id) {
-      loadTask();
-    } else {
-      setError('ID задачи не указан');
-      setLoading(false);
+    if (id && tasks.length > 0) {
+      const foundTask = tasks.find(t => t._id === id);
+      setTask(foundTask || null);
     }
-  }, [id]);
+  }, [id, tasks]);
 
-  const loadTask = async () => {
-    try {
-      setLoading(true);
-      console.log('Загружаем задачу с id:', id);
-      const taskData = await fetchTaskById(id);
-      console.log('Полученная задача:', taskData);
-      setTask(taskData);
-      setError('');
-    } catch (err) {
-      console.error('Ошибка загрузки:', err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
   const getThemeClass = (theme) => {
     switch (theme) {
       case 'Web Design': return '_orange';
@@ -55,8 +37,6 @@ function CardPage() {
     return <div style={{ textAlign: 'center', padding: '50px' }}>Задача не найдена</div>;
   }
 
-  
-  
   return (
     <div className="pop-browse" style={{ display: 'block' }}>
       <div className="pop-browse__container">
