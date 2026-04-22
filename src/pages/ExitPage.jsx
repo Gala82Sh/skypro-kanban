@@ -23,7 +23,8 @@ function ExitPage() {
           </div>
           <div className="pop-exit__form-group">
             <button className="pop-exit__exit-yes _hover01" onClick={handleLogout}>Да, выйти</button>
-            <button className="pop-exit__exit-no _hover03" onClick={handleCancel}>Нет, остаться</button>
+           <button className="pop-exit__exit-no _hover03" onClick={handleCancel}>
+              <a href="#">Нет, остаться</a></button>
           </div>
         </div>
       </div>

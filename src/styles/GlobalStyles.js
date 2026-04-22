@@ -103,7 +103,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .pop-exit__block {
-    display: block;
+     display: block;
     margin: 0 auto;
     background-color: #FFFFFF;
     max-width: 370px;
@@ -115,7 +115,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .pop-exit__ttl h2 {
-    text-align: center;
+     text-align: center;
     font-size: 20px;
     font-weight: 700;
     line-height: 30px;
@@ -124,7 +124,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .pop-exit__exit-yes {
-    width: 153px;
+   width: 153px;
     height: 30px;
     background-color: #565EEF;
     border-radius: 4px;
@@ -132,10 +132,23 @@ export const GlobalStyles = createGlobalStyle`
     color: #FFFFFF;
     margin-right: 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .pop-exit__exit-yes:hover {
     background-color: #33399b;
+  }
+
+  .pop-exit__exit-yes a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #FFFFFF;
   }
 
   .pop-exit__exit-no {
@@ -146,12 +159,28 @@ export const GlobalStyles = createGlobalStyle`
     border: 0.7px solid #565EEF;
     color: #565EEF;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .pop-exit__exit-no:hover {
     background-color: #33399b;
-    color: #FFFFFF;
     border-color: #33399b;
+  }
+
+  .pop-exit__exit-no:hover a {
+    color: #FFFFFF;
+  }
+
+  .pop-exit__exit-no a {
+   width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #565EEF;
   }
 
   .pop-exit__form-group {

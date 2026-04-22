@@ -172,4 +172,13 @@ export const PopUserBtn = styled.button`
   & a {
     color: ${colors.btnPrimaryBg};
   }
+  
+  &:hover {
+    background-color: ${colors.btnPrimaryHover};
+    border-color: ${colors.btnPrimaryHover};
+  }
+  
+  &:hover a {
+    color: #FFFFFF;
+  }
 `;
