@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
-function Calendar({ onDateSelect, initialDate }) {
+function Calendar({ onDateSelect, initialDate, editable = true }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(initialDate || null);
   const [days, setDays] = useState([]);
   const [monthName, setMonthName] = useState('');
+  
 
   const monthNames = [
     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -64,12 +65,16 @@ function Calendar({ onDateSelect, initialDate }) {
     generateDays();
   }, [currentDate]);
 
-  const prevMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    const prevMonth = () => {
+    if (editable) {
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+    }
   };
 
   const nextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    if (editable) {
+      setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+    }
   };
 
   const isToday = (date) => {
@@ -143,8 +148,8 @@ function Calendar({ onDateSelect, initialDate }) {
         <div className="calendar__period">
           <p className="calendar__p date-end">
             {selectedDate 
-              ? `Срок исполнения: ${formatDate(selectedDate)}` 
-              : 'Выберите срок исполнения'}
+      ? <>Срок исполнения: <span className="date-control">{formatDate(selectedDate)}</span></>
+      : 'Выберите срок исполнения'}
           </p>
         </div>
       </div>

@@ -18,19 +18,16 @@ export function TasksProvider({ children }) {
   const [error, setError] = useState('');
 
   const loadTasks = useCallback(async () => {
-    if (!isAuth) return;
-    
-    try {
-      setLoading(true);
-      setError('');
-      const tasksData = await fetchTasks();
-      setTasks(tasksData || []);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [isAuth]);
+  try {
+    setLoading(true);
+    const tasksData = await fetchTasks(); 
+    setTasks(tasksData);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+}, []);
 
   const addTask = async (taskData) => {
     try {

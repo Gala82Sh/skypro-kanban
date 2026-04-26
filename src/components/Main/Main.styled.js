@@ -3,7 +3,7 @@ import { colors } from '../../styles/colors';
 
 export const StyledMain = styled.main`
   width: 100%;
-  min-height: calc(100vh - 70px); 
+  min-height: calc(100vh - 70px);
   background-color: ${colors.bgMain};
 `;
 

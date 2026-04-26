@@ -1,22 +1,21 @@
-import axios from 'axios';
-
 const API_URL = 'https://wedev-api.sky.pro/api/user';
-
 
 export async function signIn({ login, password }) {
   try {
-    const response = await axios.post(
-      `${API_URL}/login`,
-      { login, password },
-      {
-        headers: {
-          'Content-Type': '', 
-        },
-      }
-    );
+    const response = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      headers: {},
+      body: JSON.stringify({ login, password })
+    });
     
-    const token = response.data.user.token;
-    const name = response.data.user.name;
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || 'Ошибка входа');
+    }
+    
+    const token = data.user.token;
+    const name = data.user.name;
     const email = login;
     
     localStorage.setItem('token', token);
@@ -25,27 +24,27 @@ export async function signIn({ login, password }) {
     
     return { token, name };
   } catch (error) {
-    if (error.response?.data?.error) {
-      throw new Error(error.response.data.error);
-    }
-    throw new Error('Ошибка подключения к серверу');
+    console.error('Ошибка входа:', error);
+    throw new Error(error.message || 'Ошибка подключения к серверу');
   }
 }
 
 export async function signUp({ name, login, password }) {
   try {
-    const response = await axios.post(
-      API_URL,
-      { name, login, password },
-      {
-        headers: {
-          'Content-Type': '', 
-        },
-      }
-    );
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {},
+      body: JSON.stringify({ name, login, password })
+    });
     
-    const token = response.data.user.token;
-    const userName = response.data.user.name;
+    const data = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(data.error || 'Ошибка регистрации');
+    }
+    
+    const token = data.user.token;
+    const userName = data.user.name;
     const email = login;
     
     localStorage.setItem('token', token);
@@ -54,10 +53,8 @@ export async function signUp({ name, login, password }) {
     
     return { token, name: userName };
   } catch (error) {
-    if (error.response?.data?.error) {
-      throw new Error(error.response.data.error);
-    }
-    throw new Error('Ошибка регистрации');
+    console.error('Ошибка регистрации:', error);
+    throw new Error(error.message || 'Ошибка регистрации');
   }
 }
 
@@ -74,6 +71,7 @@ export function getToken() {
 export function isAuthenticated() {
   return !!getToken();
 }
+
 export function getUserName() {
   return localStorage.getItem('userName');
 }

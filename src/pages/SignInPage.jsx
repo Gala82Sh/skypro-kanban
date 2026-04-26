@@ -7,13 +7,29 @@ function SignInPage() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({ login: false, password: false });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login: authLogin } = useAuth();
 
+  const isFormValid = login.trim() !== '' && password.trim() !== '';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
+   
+    const newFieldErrors = {
+      login: login.trim() === '',
+      password: password.trim() === '',
+    };
+    setFieldErrors(newFieldErrors);
+    
+    if (newFieldErrors.login || newFieldErrors.password) {
+      setError('Пожалуйста, заполните все поля');
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -24,9 +40,19 @@ function SignInPage() {
       }
     } catch (err) {
       setError(err.message);
+      setFieldErrors({ login: true, password: true });
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleFieldChange = (field, value) => {
+    if (field === 'login') setLogin(value);
+    if (field === 'password') setPassword(value);
+    if (fieldErrors[field]) {
+      setFieldErrors({ ...fieldErrors, [field]: false });
+    }
+    if (error) setError('');
   };
 
   return (
@@ -37,13 +63,14 @@ function SignInPage() {
             <div className="modal__ttl">
               <h2>Вход</h2>
             </div>
-            <form className="modal__form-login" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <input
                 className="modal__input"
                 type="email"
                 placeholder="Эл. почта"
                 value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={(e) => handleFieldChange('login', e.target.value)}
+                style={{ borderColor: fieldErrors.login ? '#ff4d4f' : undefined }}
                 required
               />
               <input
@@ -51,16 +78,21 @@ function SignInPage() {
                 type="password"
                 placeholder="Пароль"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => handleFieldChange('password', e.target.value)}
+                style={{ borderColor: fieldErrors.password ? '#ff4d4f' : undefined }}
                 required
               />
-              {error && <p style={{ color: 'red', marginBottom: '10px' }}>{error}</p>}
-              <button className="modal__btn-enter _hover01" type="submit" disabled={loading}>
+              {error && <p style={{ color: '#ff4d4f', marginBottom: '10px', fontSize: '14px' }}>{error}</p>}
+              <button 
+                className="modal__btn-enter _hover01" 
+                type="submit" 
+                disabled={loading || !isFormValid}
+                style={{ opacity: (!isFormValid || loading) ? 0.6 : 1, cursor: (!isFormValid || loading) ? 'not-allowed' : 'pointer' }}
+              >
                 {loading ? 'Вход...' : 'Войти'}
               </button>
               <div className="modal__form-group">
-                <p>Нужно зарегистрироваться?</p>
-                <Link to="/register">Регистрируйтесь здесь</Link>
+                <p>Нет аккаунта? <Link to="/register">Зарегистрируйтесь</Link></p>
               </div>
             </form>
           </div>

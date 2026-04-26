@@ -11,7 +11,7 @@ export const CardItem = styled.div`
 export const CardContainer = styled.div`
   width: 220px;
   height: 130px;
-  background-color: ${colors.white};
+  background-color: ${props => props.theme?.colors?.cardBg || colors.white};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -39,12 +39,17 @@ export const CardTheme = styled.div`
   height: 20px;
   padding: 5px 14px;
   border-radius: 18px;
+  
   background-color: ${props => {
     switch (props.$theme) {
-      case 'Web Design': return colors.orangeBg;
-      case 'Research': return colors.greenBg;
-      case 'Copywriting': return colors.purpleBg;
-      default: return colors.grayBg;
+      case 'Web Design': 
+        return props.theme?.colors?.orangeBg || colors.orangeBg;
+      case 'Research': 
+        return props.theme?.colors?.greenBg || colors.greenBg;
+      case 'Copywriting': 
+        return props.theme?.colors?.purpleBg || colors.purpleBg;
+      default: 
+        return props.theme?.colors?.grayBg || colors.grayBg;
     }
   }};
   
@@ -54,10 +59,14 @@ export const CardTheme = styled.div`
     line-height: 10px;
     color: ${props => {
       switch (props.$theme) {
-        case 'Web Design': return colors.orangeText;
-        case 'Research': return colors.greenText;
-        case 'Copywriting': return colors.purpleText;
-        default: return colors.grayText;
+        case 'Web Design': 
+          return props.theme?.colors?.orangeText || colors.orangeText;
+        case 'Research': 
+          return props.theme?.colors?.greenText || colors.greenText;
+        case 'Copywriting': 
+          return props.theme?.colors?.purpleText || colors.purpleText;
+        default: 
+          return props.theme?.colors?.grayText || colors.grayText;
       }
     }};
   }
@@ -75,7 +84,7 @@ export const CardBtn = styled.div`
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background-color: ${colors.textSecondary};
+    background-color: ${props => props.theme?.colors?.textSecondary || colors.textSecondary};
   }
 `;
 
@@ -91,7 +100,7 @@ export const CardTitle = styled.h3`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: ${colors.textPrimary};
+  color: ${props => props.theme?.colors?.textPrimary || colors.textPrimary};
   margin-bottom: 10px;
 `;
 
@@ -104,11 +113,17 @@ export const CardDate = styled.div`
     width: 13px;
   }
   
+  & img {
+    width: 13px;
+    height: 13px;
+    margin-right: 4px;
+  }
+  
   & p {
     margin-left: 6px;
     font-size: 10px;
     line-height: 13px;
-    color: ${colors.textSecondary};
+    color: ${props => props.theme?.colors?.textSecondary || colors.textSecondary};
     letter-spacing: 0.2px;
   }
 `;

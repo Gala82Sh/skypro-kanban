@@ -1,0 +1,51 @@
+export const lightTheme = {
+  colors: {
+    bgWrapper: '#F1F1F1',
+    bgMain: '#EAEEF6',
+    bgHeader: '#FFFFFF',
+    textPrimary: '#000000',
+    textSecondary: '#94A6BE',
+    cardBg: '#FFFFFF',
+    border: '#D4DBE5',
+    buttonBg: '#565EEF',
+    buttonHover: '#33399b',
+    buttonText: '#FFFFFF',
+    orangeBg: '#FFE4C2',
+    orangeText: '#FF6D00',
+    greenBg: '#B4FDD1',
+    greenText: '#06B16E',
+    purpleBg: '#E9D4FF',
+    purpleText: '#9A48F1',
+    grayBg: '#94A6BE',
+    grayText: '#FFFFFF',
+    white: '#FFFFFF',
+    black: '#000000',
+    borderInput: 'rgba(148, 166, 190, 0.4)',
+  }
+};
+
+export const darkTheme = {
+  colors: {
+    bgWrapper: '#151419',
+    bgMain: '#20202C',
+    bgHeader: '#4E5566',
+    textPrimary: '#FFFFFF',
+    textSecondary: '#94A6BE',
+    cardBg: '#4E5566',
+    border: '#4E5566',
+    buttonBg: '#565EEF',
+    buttonHover: '#33399b',
+    buttonText: '#FFFFFF',
+    orangeBg: '#FF6D00',
+    orangeText: '#FFE4C2',
+    greenBg: '#06B16E',
+    greenText: '#B4FDD1',
+    purpleBg: '#9A48F1',
+    purpleText: '#E9D4FF',
+    grayBg: '#94A6BE',
+    grayText: '#FFFFFF',
+    white: '#4E5566',
+    black: '#FFFFFF',
+    borderInput: 'rgba(148, 166, 190, 0.4)',
+  }
+};

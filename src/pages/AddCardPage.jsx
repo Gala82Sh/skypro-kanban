@@ -41,7 +41,6 @@ function AddCardPage() {
         <div className="pop-new-card__block">
           <div className="pop-new-card__content">
             <h3 className="pop-new-card__ttl">Создание задачи</h3>
-            <button className="pop-new-card__close" onClick={() => navigate('/')}>✖</button>
             <div className="pop-new-card__wrap">
               <form className="pop-new-card__form form-new" onSubmit={handleSubmit}>
                 <div className="form-new__block">

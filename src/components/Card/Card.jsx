@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { formatDate } from '../../utils/dateUtils'; 
+import { formatDate } from '../../utils/dateUtils';
 import {
   CardItem,
   CardContainer,
@@ -16,8 +16,8 @@ function Card({ card }) {
     <CardItem>
       <CardContainer>
         <CardGroup>
-          <CardTheme $theme={card.theme}>
-            <p>{card.theme}</p>
+          <CardTheme $theme={card.topic}>
+            <p>{card.topic}</p>
           </CardTheme>
           <Link to={`/card/${card._id}`}>
             <CardBtn>
@@ -32,7 +32,8 @@ function Card({ card }) {
             <CardTitle>{card.title}</CardTitle>
           </Link>
           <CardDate>
-            <p>{formatDate(card.date)}</p>  {}
+            <img src="/images/calendar-clear-outline.png" alt="Календарь" width="13" height="13" />
+            <p>{formatDate(card.date)}</p>
           </CardDate>
         </CardContent>
       </CardContainer>

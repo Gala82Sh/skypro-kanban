@@ -3,7 +3,6 @@ export function formatDate(dateString) {
   
   const date = new Date(dateString);
   
- 
   if (isNaN(date.getTime())) return 'Дата не указана';
   
   const day = date.getDate().toString().padStart(2, '0');

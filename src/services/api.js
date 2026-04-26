@@ -1,77 +1,97 @@
-import axios from 'axios';
 import { getToken } from './auth';
 
 const API_URL = 'https://wedev-api.sky.pro/api/kanban';
 
-
-const apiClient = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': '', 
-  },
-});
-
-
-apiClient.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-
 export async function fetchTasks() {
   try {
-    const response = await apiClient.get('/');
-    return response.data.tasks;
+    const token = getToken();
+    const response = await fetch(`${API_URL}/`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    return data.tasks;
   } catch (error) {
-    if (error.response?.status === 401) {
-      throw new Error('Необходимо авторизоваться');
-    }
     throw new Error('Ошибка загрузки задач');
   }
 }
 
-
 export async function fetchTaskById(id) {
   try {
-    const response = await apiClient.get(`/${id}`);
-    return response.data.task;
+    const token = getToken();
+    const response = await fetch(`${API_URL}/${id}`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    return data.task;
   } catch (error) {
-    if (error.response?.status === 404) {
-      throw new Error('Задача не найдена');
-    }
     throw new Error('Ошибка загрузки задачи');
   }
 }
 
-
 export async function createTask(taskData) {
   try {
-    const response = await apiClient.post('/', taskData);
-    return response.data.tasks;
+    const token = getToken();
+    const response = await fetch(`${API_URL}/`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({
+        title: taskData.title,
+        topic: taskData.topic,
+        description: taskData.description,
+        date: taskData.date,
+        status: taskData.status || 'Без статуса'
+      })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Ошибка создания задачи');
+    }
+    return data;
   } catch (error) {
+    console.error('Ошибка создания задачи:', error);
     throw new Error('Ошибка создания задачи');
   }
 }
 
-
 export async function updateTask(id, taskData) {
   try {
-    const response = await apiClient.put(`/${id}`, taskData);
-    return response.data.tasks;
+    const token = getToken();
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({
+        title: taskData.title,
+        topic: taskData.topic,
+        description: taskData.description,
+        date: taskData.date,
+        status: taskData.status
+      })
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Ошибка обновления задачи');
+    }
+    return data;
   } catch (error) {
+    console.error('Ошибка обновления задачи:', error);
     throw new Error('Ошибка обновления задачи');
   }
 }
 
-
 export async function deleteTask(id) {
   try {
-    const response = await apiClient.delete(`/${id}`);
-    return response.data.tasks;
+    const token = getToken();
+    const response = await fetch(`${API_URL}/${id}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Ошибка удаления задачи');
+    }
+    return data;
   } catch (error) {
+    console.error('Ошибка удаления задачи:', error);
     throw new Error('Ошибка удаления задачи');
   }
 }
