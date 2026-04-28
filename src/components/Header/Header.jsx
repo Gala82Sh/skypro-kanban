@@ -32,32 +32,18 @@ function Header() {
       <div className="container">
         <HeaderBlock>
           {}
-          <Logo className="_show _light">
-            <Link to="/">
-              skypro
-            </Link>
-          </Logo>
-
-          {}
-          <div className="header__logo _dark" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <Logo>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
               <img 
                 src="/images/Logo (1).png" 
                 alt="logo" 
                 style={{ height: '17.18px', width: 'auto' }}
               />
-              <span style={{ 
-                width: '84.13px', 
-                height: '17.18px', 
-                display: 'inline-block', 
-                lineHeight: '17.18px',
-                color: '#FFFFFF',
-                fontFamily: 'inherit'
-              }}>
+              <span className="logo-text">
                 skypro
               </span>
             </Link>
-          </div>
+          </Logo>
 
           <Nav>
             <BtnMainNew>

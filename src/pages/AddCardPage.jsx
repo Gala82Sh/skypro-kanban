@@ -62,25 +62,24 @@ function AddCardPage() {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
-
                 <div className="pop-new-card__categories categories">
                   <p className="categories__p subttl">Категория</p>
                   <div className="categories__themes">
-                    <div 
+                    <div
                       className={`categories__theme _orange ${topic === 'Web Design' ? '_active-category' : ''}`}
                       onClick={() => setTopic('Web Design')}
                       style={{ cursor: 'pointer' }}
                     >
                       <p className="_orange">Web Design</p>
                     </div>
-                    <div 
+                    <div
                       className={`categories__theme _green ${topic === 'Research' ? '_active-category' : ''}`}
                       onClick={() => setTopic('Research')}
                       style={{ cursor: 'pointer' }}
                     >
                       <p className="_green">Research</p>
                     </div>
-                    <div 
+                    <div
                       className={`categories__theme _purple ${topic === 'Copywriting' ? '_active-category' : ''}`}
                       onClick={() => setTopic('Copywriting')}
                       style={{ cursor: 'pointer' }}
@@ -89,15 +88,18 @@ function AddCardPage() {
                     </div>
                   </div>
                 </div>
-
                 {error && <p style={{ color: 'red', margin: '10px 0' }}>{error}</p>}
-                <button className="form-new__create _hover01" type="submit" disabled={loading}>
-                  {loading ? 'Создание...' : 'Создать задачу'}
-                </button>
               </form>
-              
               <Calendar onDateSelect={handleDateSelect} initialDate={selectedDate} />
             </div>
+            <button 
+              className="form-new__create _hover01" 
+              type="submit" 
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? 'Создание...' : 'Создать задачу'}
+            </button>
           </div>
         </div>
       </div>

@@ -31,7 +31,7 @@ export const darkTheme = {
     bgHeader: '#4E5566',
     textPrimary: '#FFFFFF',
     textSecondary: '#94A6BE',
-    cardBg: '#4E5566',
+    cardBg: '#20202C',
     border: '#4E5566',
     buttonBg: '#565EEF',
     buttonHover: '#33399b',

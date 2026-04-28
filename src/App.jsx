@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import AppRoutes from './AppRoutes';
+import { Outlet } from 'react-router-dom';
 import Header from './components/Header/Header';
 import { useTheme } from './contexts/ThemeContext';
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="wrapper">
       <Header />
-      <AppRoutes />
+      <Outlet />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import { useTasks } from '../contexts/TasksContext';
 import { useTheme } from '../contexts/ThemeContext';
 import Column from '../components/Column/Column';
@@ -27,21 +28,7 @@ function MainPage() {
       <StyledMain>
         <div className="container">
           <MainBlock>
-            {isDark ? (
-              <LoadingText style={{
-                background: 'linear-gradient(90deg, #C1CDDC, #E9EEF7, #C1CDDC)',
-                backgroundSize: '200% 100%',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent',
-                animation: 'shimmer 1.8s infinite',
-                display: 'inline-block'
-              }}>
-                Загрузка задач...
-              </LoadingText>
-            ) : (
-              <LoadingText>Загрузка задач...</LoadingText>
-            )}
+            <LoadingText>Загрузка задач...</LoadingText>
           </MainBlock>
         </div>
       </StyledMain>
@@ -71,6 +58,7 @@ function MainPage() {
           </MainContent>
         </MainBlock>
       </div>
+      <Outlet />
     </StyledMain>
   );
 }

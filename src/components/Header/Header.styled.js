@@ -5,6 +5,11 @@ export const StyledHeader = styled.header`
   width: 100%;
   margin: 0 auto;
   background-color: ${colors.bgHeader};
+  
+  /* Тёмная тема */
+  body.dark-theme & {
+    background-color: #20202C !important;
+  }
 `;
 
 export const HeaderBlock = styled.div`

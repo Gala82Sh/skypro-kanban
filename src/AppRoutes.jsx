@@ -22,10 +22,11 @@ function AppRoutes() {
       <Route path="/register" element={<SignUpPage />} />
 
       <Route element={<PrivateRoute isAuth={isAuth} />}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/card/add" element={<AddCardPage />} />
-        <Route path="/card/:id" element={<CardPage />} />
-        <Route path="/exit" element={<ExitPage />} />
+        <Route path="/" element={<MainPage />}>
+          <Route path="card/add" element={<AddCardPage />} />
+          <Route path="card/:id" element={<CardPage />} />
+          <Route path="exit" element={<ExitPage />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

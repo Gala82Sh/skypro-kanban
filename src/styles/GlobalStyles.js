@@ -3,7 +3,6 @@ import { colors } from './colors';
 
 export const GlobalStyles = createGlobalStyle`
 
-  /* ===== БАЗОВЫЕ СТИЛИ ===== */
   * {
     margin: 0;
     padding: 0;
@@ -57,6 +56,11 @@ export const GlobalStyles = createGlobalStyle`
     100% { height: auto; opacity: 1; }
   }
 
+  @keyframes shimmer {
+    0% { background-position: -200px 0; }
+    100% { background-position: calc(200px + 100%) 0; }
+  }
+
   @media screen and (max-width: 495px) {
     .container {
       width: 100%;
@@ -85,16 +89,6 @@ export const GlobalStyles = createGlobalStyle`
     display: block;
   }
 
- @keyframes shimmer {
-    0% {
-      background-position: -200px 0;
-    }
-    100% {
-      background-position: calc(200px + 100%) 0;
-    }
-  }
-
-  /* ===== ОКНО ВЫХОДА ===== */
   .pop-exit__container {
     width: 100%;
     height: 100%;
@@ -195,7 +189,6 @@ export const GlobalStyles = createGlobalStyle`
     justify-content: space-between;
   }
 
-  /* ===== ОКНО СОЗДАНИЯ ЗАДАЧИ ===== */
   .pop-new-card__container {
     width: 100%;
     height: 100%;
@@ -268,7 +261,6 @@ export const GlobalStyles = createGlobalStyle`
     margin-left: 30px;
   }
 
-  /* ===== ОКНО ПРОСМОТРА / РЕДАКТИРОВАНИЯ ЗАДАЧИ ===== */
   .pop-browse__container {
     width: 100%;
     height: 100%;
@@ -455,7 +447,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  /* ===== ОБЩИЕ СТИЛИ ФОРМ ===== */
+
   .form-new__block {
     display: flex;
     flex-direction: column;
@@ -524,7 +516,7 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1;
   }
 
-  /* ===== КАТЕГОРИИ ===== */
+
   .categories {
     margin-bottom: 20px;
   }
@@ -596,7 +588,6 @@ export const GlobalStyles = createGlobalStyle`
     color: #FFFFFF;
   }
 
-  /* ===== МОДАЛЬНЫЕ ОКНА (ВХОД / РЕГИСТРАЦИЯ) ===== */
   .modal__block {
     display: block;
     margin: 0 auto;
@@ -784,26 +775,39 @@ export const GlobalStyles = createGlobalStyle`
     opacity: 0;
   }
 
-  /* ===================== ТЁМНАЯ ТЕМА  ===================== */
+
   body.dark-theme {
     background-color: #000000 !important;
   }
 
   body.dark-theme .wrapper,
-  body.dark-theme .main,
-  body.dark-theme .sc-kEqYZi,
-  body.dark-theme .eaGrhG {
+  body.dark-theme main {
     background-color: #151419 !important;
   }
 
+  body.dark-theme .sc-gtstET.dVGquP {
+    background-color: #20202C !important;
+  }
+
+  
   body.dark-theme .sc-gtstET,
   body.dark-theme .ldkZjf,
   body.dark-theme .cards__card {
     background-color: #20202C !important;
   }
 
+ 
   body.dark-theme .sc-gKzYWW,
-  body.dark-theme .card__title {
+  body.dark-theme .card__title,
+  body.dark-theme .pop-browse__ttl,
+  body.dark-theme .pop-new-card__ttl,
+  body.dark-theme .subttl,
+  body.dark-theme .categories__p,
+  body.dark-theme .calendar__ttl,
+  body.dark-theme .status__p,
+  body.dark-theme label.subttl,
+  body.dark-theme .form-new__block .subttl,
+  body.dark-theme .pop-new-card__categories .subttl {
     color: #FFFFFF !important;
   }
 
@@ -812,18 +816,43 @@ export const GlobalStyles = createGlobalStyle`
     color: #94A6BE !important;
   }
 
-  body.dark-theme .header {
-    background-color: #4E5566 !important;
-  }
-
+ 
+  body.dark-theme .calendar,
   body.dark-theme .pop-browse__block,
   body.dark-theme .pop-new-card__block,
-  body.dark-theme .calendar {
+  body.dark-theme .pop-exit__block {
     background-color: #20202C !important;
   }
 
-  /* ===== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ ТЁМНОЙ ТЕМЫ ===== */
-  
+  body.dark-theme .calendar__cell {
+    color: #94A6BE !important;
+  }
+
+  body.dark-theme .calendar__cell._active-day {
+    background-color: #94A6BE !important;
+    color: #151419 !important;
+  }
+
+  body.dark-theme .calendar__cell._cell-day:hover {
+    background-color: #4E5566 !important;
+    color: #FFFFFF !important;
+  }
+
+  body.dark-theme .calendar__month,
+  body.dark-theme .calendar__day-name {
+    color: #94A6BE !important;
+  }
+
+  body.dark-theme .nav__action svg {
+    fill: #94A6BE !important;
+  }
+
+  body.dark-theme .calendar__p .date-control,
+  body.dark-theme .calendar__p span.date-control {
+    color: #FFFFFF !important;
+  }
+
+ 
   body.dark-theme .form-browse__area {
     background-color: #151419 !important;
     color: #94A6BE !important;
@@ -848,30 +877,13 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body.dark-theme .modal__input {
-    background-color: #151419 !important;
-    color: #FFFFFF !important;
+    background-color: #20202C !important;
+    color: #94A6BE !important;
     border-color: #4E5566 !important;
   }
 
   body.dark-theme .modal__input::placeholder {
     color: #94A6BE !important;
-  }
-
-  body.dark-theme .pop-browse__ttl {
-    color: #FFFFFF !important;
-  }
-
-  body.dark-theme .pop-browse__ttl,
-  body.dark-theme .pop-browse__ttl input {
-    color: #FFFFFF !important;
-    background-color: transparent !important;
-  }
-  body.dark-theme .pop-new-card__ttl {
-    color: #FFFFFF !important;
-  }
-
-  body.dark-theme .pop-browse__top-block {
-    background-color: transparent !important;
   }
 
   body.dark-theme .pop-browse__ttl input {
@@ -881,34 +893,7 @@ export const GlobalStyles = createGlobalStyle`
     padding: 4px 8px !important;
   }
 
-  body.dark-theme .calendar__p .date-control,
-  body.dark-theme .calendar__p span.date-control {
-    color: #FFFFFF !important;
-  }
-
-  body.dark-theme .card__date svg path,
-  body.dark-theme [class*="CardDate"] svg path {
-    stroke: #94A6BE !important;
-  }
-
-  body.dark-theme .card__date svg circle,
-  body.dark-theme [class*="CardDate"] svg circle {
-    fill: #94A6BE !important;
-  }
-
-  body.dark-theme .pop-new-card__ttl,
-  body.dark-theme .subttl,
-  body.dark-theme .categories__p,
-  body.dark-theme .calendar__ttl {
-    color: #FFFFFF !important;
-  }
-
-  body.dark-theme label.subttl,
-  body.dark-theme .form-new__block .subttl,
-  body.dark-theme .pop-new-card__categories .subttl {
-    color: #FFFFFF !important;
-  }
-
+ 
   body.dark-theme ._orange {
     background-color: #FF6D00 !important;
     color: #FFE4C2 !important;
@@ -929,6 +914,13 @@ export const GlobalStyles = createGlobalStyle`
     color: #FFFFFF !important;
   }
 
+ 
+  body.dark-theme ._btn-bg,
+  body.dark-theme .form-new__create {
+    background-color: #565EEF !important;
+    color: #FFFFFF !important;
+  }
+
   body.dark-theme ._btn-bor {
     background-color: transparent !important;
     border: 0.7px solid #FFFFFF !important;
@@ -938,16 +930,14 @@ export const GlobalStyles = createGlobalStyle`
   body.dark-theme ._btn-bor:hover {
     background-color: #33399b !important;
     border-color: #33399b !important;
-  }
-
-  body.dark-theme ._btn-bor:hover a,
-  body.dark-theme ._btn-bor:hover {
     color: #FFFFFF !important;
   }
 
-  body.dark-theme ._btn-bg {
-    background-color: #565EEF !important;
-    color: #FFFFFF !important;
+ 
+  body.dark-theme .status__theme {
+    background-color: transparent !important;
+    border-color: #4E5566 !important;
+    color: #94A6BE !important;
   }
 
   body.dark-theme .status__theme._active-status {
@@ -959,50 +949,57 @@ export const GlobalStyles = createGlobalStyle`
     color: #151419 !important;
   }
 
-  /* ===== КАЛЕНДАРЬ В ТЁМНОЙ ТЕМЕ ===== */
-  
-  /* Выбранная дата - кружок #94A6BE, текст #151419 */
-  body.dark-theme .calendar__cell._active-day {
-    background-color: #94A6BE !important;
-    color: #151419 !important;
-  }
+body.dark-theme .sc-gKzYWW.grscAK {
+  background-color: #202229 !important;
+  border-color: #4E5566 !important;
+}
 
-  body.dark-theme .calendar__cell {
-    color: #94A6BE !important;
-  }
+body.dark-theme .sc-iCoKjR.hDSnxY {
+  color: #FFFFFF !important;
+}
 
-  body.dark-theme .calendar__cell._cell-day:hover {
-    background-color: #4E5566 !important;
-    color: #FFFFFF !important;
-  }
+body.dark-theme .sc-fujBio.cuDqWn {
+  color: #FFFFFF !important;
+}
 
-  body.dark-theme .calendar__day-name {
-    color: #94A6BE !important;
-  }
+body.dark-theme .sc-pNYLI.jbXqJS p {
+  color: #FFFFFF !important;
+}
 
-  body.dark-theme .calendar__month {
-    color: #94A6BE !important;
-  }
+body.dark-theme .sc-pNYLI.jbXqJS input[type="checkbox"] {
+  background: #FFFFFF !important;
+}
 
-  body.dark-theme .nav__action svg {
-    fill: #94A6BE !important;
-  }
+body.dark-theme .sc-pNYLI.jbXqJS input[type="checkbox"]::before {
+  background-color: #94A6BE !important;
+}
 
-  /* ===== ОКНО ПОЛЬЗОВАТЕЛЯ В ТЁМНОЙ ТЕМЕ ===== */
-  
-  body.dark-theme [class*="PopUserSet"] {
-    background-color: #202229 !important;
-    border-color: #4E5566 !important;
-  }
+body.dark-theme .sc-pNYLI.jbXqJS input:checked::before {
+  background-color: #565EEF !important;
+  left: 12px !important;
+}
 
-  body.dark-theme [class*="PopUserName"] {
-    color: #FFFFFF !important;
-  }
+body.dark-theme .sc-jrsLQV.ienRxJ {
+  background: transparent !important;
+  border: 1px solid #FFFFFF !important;
+  color: #FFFFFF !important;
+}
 
-  body.dark-theme [class*="PopUserMail"] {
-    color: #FFFFFF !important;
-  }
+body.dark-theme .sc-jrsLQV.ienRxJ:hover {
+  background-color: #565EEF !important;
+  border-color: #565EEF !important;
+}
 
+body.dark-theme .sc-jrsLQV.ienRxJ a {
+  color: #FFFFFF !important;
+}
+
+body.dark-theme .sc-jrsLQV.ienRxJ:hover a {
+  color: #FFFFFF !important;
+}
+
+  body.dark-theme [class*="PopUserName"],
+  body.dark-theme [class*="PopUserMail"],
   body.dark-theme [class*="PopUserTheme"] p {
     color: #FFFFFF !important;
   }
@@ -1017,198 +1014,160 @@ export const GlobalStyles = createGlobalStyle`
 
   body.dark-theme [class*="PopUserTheme"] input:checked::before {
     background-color: #565EEF !important;
+    left: 12px !important;
   }
 
   body.dark-theme [class*="PopUserBtn"] {
     background: transparent !important;
-    border-color: #565EEF !important;
-  }
-
-  body.dark-theme [class*="PopUserBtn"] a {
-    color: #565EEF !important;
+    border: 1px solid #FFFFFF !important;
+    color: #FFFFFF !important;
   }
 
   body.dark-theme [class*="PopUserBtn"]:hover {
     background-color: #565EEF !important;
+    border-color: #565EEF !important;
+  }
+
+  body.dark-theme [class*="PopUserBtn"] a {
+    color: #FFFFFF !important;
   }
 
   body.dark-theme [class*="PopUserBtn"]:hover a {
     color: #FFFFFF !important;
   }
 
-  /* ===== ОКНО ПОЛЬЗОВАТЕЛЯ В ТЁМНОЙ ТЕМЕ  ===== */
-  
-  body.dark-theme .iklEKF {
-    background-color: #202229 !important;
-    border-color: #4E5566 !important;
-  }
-
-  body.dark-theme .iklEKF p,
-  body.dark-theme .iklEKF .sc-gKzYWW,
-  body.dark-theme .iklEKF [class*="PopUserName"],
-  body.dark-theme .iklEKF [class*="PopUserMail"] {
+  body.dark-theme .sc-jSFhYz.iZhoxL {
     color: #FFFFFF !important;
   }
 
-  body.dark-theme .iklEKF .sc-iCoKjR p,
-  body.dark-theme .iklEKF [class*="PopUserTheme"] p {
+  body.dark-theme .sc-jSFhYz.iZhoxL::after {
+    border-left-color: #FFFFFF !important;
+    border-bottom-color: #FFFFFF !important;
+  }
+
+  .logo-text {
+    color: #000000 !important;
+  }
+
+  body.dark-theme .logo-text {
     color: #FFFFFF !important;
   }
 
-  body.dark-theme .iklEKF input[type="checkbox"] {
-    background: #FFFFFF !important;
+  body.dark-theme .pop-exit__ttl h2 {
+    color: #FFFFFF !important;
   }
 
-  body.dark-theme .iklEKF input[type="checkbox"]::before {
-    background-color: #94A6BE !important;
-  }
-
-  body.dark-theme .iklEKF input:checked::before {
-    background-color: #565EEF !important;
-  }
-
-  body.dark-theme .iklEKF button,
-  body.dark-theme .iklEKF [class*="PopUserBtn"] {
+  body.dark-theme .pop-exit__exit-no {
     background: transparent !important;
+    border: 1px solid #FFFFFF !important;
+    color: #FFFFFF !important;
+  }
+
+  body.dark-theme .pop-exit__exit-no a {
+    color: #FFFFFF !important;
+  }
+
+  body.dark-theme .pop-exit__exit-no:hover {
+    background-color: #565EEF !important;
     border-color: #565EEF !important;
   }
 
-  body.dark-theme .iklEKF button a,
-  body.dark-theme .iklEKF [class*="PopUserBtn"] a {
-    color: #565EEF !important;
-  }
-
-  body.dark-theme .iklEKF button:hover,
-  body.dark-theme .iklEKF [class*="PopUserBtn"]:hover {
-    background-color: #565EEF !important;
-  }
-
-  body.dark-theme .iklEKF button:hover a,
-  body.dark-theme .iklEKF [class*="PopUserBtn"]:hover a {
+  body.dark-theme .pop-exit__exit-no:hover a {
     color: #FFFFFF !important;
   }
 
-    /* ===== ОКНО РЕГИСТРАЦИИ / ВХОДА В ТЁМНОЙ ТЕМЕ ===== */
-  
+  .pop-new-card,
+  .pop-browse,
+  .pop-exit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: none;
+  }
+
+  .pop-new-card:target,
+  .pop-browse:target,
+  .pop-exit:target {
+    display: block;
+  }
+
+  body.dark-theme .pop-new-card,
+  body.dark-theme .pop-browse,
+  body.dark-theme .pop-exit {
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  body.dark-theme .pop-new-card__container,
+  body.dark-theme .pop-browse__container,
+  body.dark-theme .pop-exit__container {
+    background: transparent !important;
+  }
+
+  body.dark-theme .pop-new-card__block,
+  body.dark-theme .pop-browse__block,
+  body.dark-theme .pop-exit__block {
+    background-color: #20202C !important;
+    border-color: #4E5566 !important;
+  }
+
+  body.dark-theme .form-new__input,
+  body.dark-theme .form-new__area,
+  body.dark-theme .form-browse__area {
+    background-color: #151419 !important;
+    color: #FFFFFF !important;
+    border-color: #4E5566 !important;
+  }
+
+  body.dark-theme .categories__p,
+  body.dark-theme .subttl {
+    color: #FFFFFF !important;
+  }
+
+  body.dark-theme [class*="CardDate"] p,
+  body.dark-theme [class*="sc-fnWaXB"] p {
+    color: #94A6BE !important;
+  }
+
   body.dark-theme .modal__block {
     background-color: #20202C !important;
     border-color: #4E5566 !important;
   }
-  
+
   body.dark-theme .modal__ttl h2 {
     color: #FFFFFF !important;
   }
-  
-  body.dark-theme .modal__input {
-    background-color: #20202C !important;
-    color: #94A6BE !important;
-    border-color: #4E5566 !important;
-  }
-  
-  body.dark-theme .modal__input::placeholder {
-    color: #94A6BE !important;
-  }
-  
+
   body.dark-theme .modal__btn-enter,
   body.dark-theme .modal__btn-signup-ent {
     background-color: #565EEF !important;
     color: #FFFFFF !important;
   }
-  
+
   body.dark-theme .modal__btn-enter:hover,
   body.dark-theme .modal__btn-signup-ent:hover {
     background-color: #33399b !important;
   }
-  
-  body.dark-theme .modal__form-group p {
-    color: #94A6BE !important;
-  }
-  
+
+  body.dark-theme .modal__form-group p,
   body.dark-theme .modal__form-group a {
     color: #94A6BE !important;
   }
-  
+
   body.dark-theme .modal__form-group a:hover {
     color: #565EEF !important;
   }
+    
+  body.dark-theme .card__date svg path,
+  body.dark-theme [class*="CardDate"] svg path {
+    stroke: #94A6BE !important;
+  }
 
-   /* ===== ХЕДЕР В ТЁМНОЙ ТЕМЕ ===== */
-  
-  /* Фон хедера - #20202C */
-  body.dark-theme .sc-bqGEVu {
-    background-color: #20202C !important;
+  body.dark-theme .card__date svg circle,
+  body.dark-theme [class*="CardDate"] svg circle {
+    fill: #94A6BE !important;
   }
-  
-  /* Логотип в светлой теме - скрываем */
-  body.dark-theme ._show._light {
-    display: none !important;
-  }
-  
-  /* Логотип в тёмной теме - показываем */
-  body.dark-theme .header__logo._dark {
-    display: block !important;
-  }
-  
-  /* Имя пользователя - белое */
-  body.dark-theme .sc-bkbknG {
-    color: #FFFFFF !important;
-  }
-  
-  /* Стрелка рядом с именем пользователя - белая */
-  body.dark-theme .sc-bkbknG::after {
-    border-left-color: #FFFFFF !important;
-    border-bottom-color: #FFFFFF !important;
-  }
-  
-  /* Кнопка "Создать новую задачу" - без изменений */
-  body.dark-theme .sc-fFSRQT {
-    background-color: #565EEF !important;
-    color: #FFFFFF !important;
-  }
-  
-  body.dark-theme .sc-fFSRQT:hover {
-    background-color: #33399b !important;
-  }
-  
-  /* Имя и почта в выпадающем окне - белые */
-  body.dark-theme .sc-dIvsxA,
-  body.dark-theme .sc-hHEhmb {
-    color: #FFFFFF !important;
-  }
-  
-  /* Текст "Темная тема" в выпадающем окне - белый */
-  body.dark-theme .sc-dlMzIO p {
-    color: #FFFFFF !important;
-  }
-  
-  /* Переключатель темы */
-  body.dark-theme .sc-dlMzIO input {
-    background: #4E5566 !important;
-  }
-  
-  body.dark-theme .sc-dlMzIO input::before {
-    background-color: #94A6BE !important;
-  }
-  
-  body.dark-theme .sc-dlMzIO input:checked::before {
-    background-color: #565EEF !important;
-  }
-  
-  /* Кнопка "Выйти" */
-  body.dark-theme .sc-kfYpvV {
-    background: transparent !important;
-    border-color: #565EEF !important;
-  }
-  
-  body.dark-theme .sc-kfYpvV a {
-    color: #565EEF !important;
-  }
-  
-  body.dark-theme .sc-kfYpvV:hover {
-    background-color: #565EEF !important;
-  }
-  
-  body.dark-theme .sc-kfYpvV:hover a {
-    color: #FFFFFF !important;
-  }
+
 `;

@@ -11,7 +11,7 @@ function ExitPage() {
   };
 
   const handleCancel = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   return (
@@ -22,9 +22,12 @@ function ExitPage() {
             <h2>Выйти из аккаунта?</h2>
           </div>
           <div className="pop-exit__form-group">
-            <button className="pop-exit__exit-yes _hover01" onClick={handleLogout}>Да, выйти</button>
-           <button className="pop-exit__exit-no _hover03" onClick={handleCancel}>
-              <a href="#">Нет, остаться</a></button>
+            <button className="pop-exit__exit-yes _hover01" onClick={handleLogout}>
+              Да, выйти
+            </button>
+            <button className="pop-exit__exit-no _hover03" onClick={handleCancel}>
+              Нет, остаться
+            </button>
           </div>
         </div>
       </div>
