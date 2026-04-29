@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import { useTasks } from '../contexts/TasksContext';
 import { useTheme } from '../contexts/ThemeContext';
 import Column from '../components/Column/Column';
-import Card from '../components/Card/Card';
 import LoaderCard from '../components/Loader/LoaderCard';
 import { StyledMain, MainBlock, MainContent, LoadingText } from '../components/Main/Main.styled';
 
 function MainPage() {
+  const navigate = useNavigate();
   const { tasks, loading, error, loadTasks, editTask } = useTasks();
   const { isDark } = useTheme();
   const [localTasks, setLocalTasks] = useState([]);
@@ -51,11 +51,11 @@ function MainPage() {
       await loadTasks();
     } catch (err) {
       setLocalTasks(tasks);
-      console.error('Ошибка обновления статуса:', err);
     }
   };
 
-  if (loading) {
+  
+  if (loading && tasks.length === 0) {
     if (!isDark) {
       return (
         <StyledMain>
@@ -90,6 +90,7 @@ function MainPage() {
     );
   }
 
+ 
   if (error) {
     return (
       <StyledMain>
@@ -102,6 +103,44 @@ function MainPage() {
     );
   }
 
+  
+  if (!loading && tasks.length === 0) {
+    return (
+      <StyledMain>
+        <div className="container">
+          <MainBlock>
+            <div style={{ textAlign: 'center', padding: '80px 0' }}>
+              <div style={{ fontSize: '64px', marginBottom: '20px' }}>📋</div>
+              <h2 style={{ 
+                marginBottom: '15px', 
+                fontSize: '24px', 
+                color: isDark ? '#FFFFFF' : '#000000' 
+              }}>
+                Новых задач нет
+              </h2>
+              <p style={{ 
+                marginBottom: '30px', 
+                color: '#94A6BE', 
+                fontSize: '16px' 
+              }}>
+                Создайте свою первую задачу, чтобы начать работу
+              </p>
+              <button 
+                className="_btn-bg _hover01" 
+                onClick={() => navigate('/card/add')}
+                style={{ padding: '12px 24px', fontSize: '16px', cursor: 'pointer' }}
+              >
+                + Создать задачу
+              </button>
+            </div>
+          </MainBlock>
+        </div>
+        <Outlet />
+      </StyledMain>
+    );
+  }
+
+  
   return (
     <StyledMain>
       <div className="container">

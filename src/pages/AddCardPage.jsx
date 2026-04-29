@@ -20,18 +20,45 @@ function AddCardPage() {
     e.preventDefault();
     setError('');
 
+    
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
+      setError('Название задачи не может быть пустым');
+      return;
+    }
+
+    
+    if (!topic) {
+      setError('Выберите категорию задачи');
+      return;
+    }
+
+  
+    if (!selectedDate) {
+      setError('Укажите дату задачи');
+      return;
+    }
+
+   
+    if (isNaN(selectedDate.getTime())) {
+      setError('Укажите корректную дату');
+      return;
+    }
+
+    const trimmedDescription = description.trim();
+
     const taskData = {
-      title: title || 'Новая задача',
+      title: trimmedTitle,
       topic,
-      description: description || '',
-      date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
+      description: trimmedDescription || '',
+      date: selectedDate.toISOString(),
     };
 
     try {
       await addTask(taskData);
       navigate('/');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Ошибка создания задачи. Попробуйте позже.');
     }
   };
 

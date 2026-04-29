@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTasks } from '../contexts/TasksContext';
-import { formatDate } from '../utils/dateUtils';
 import Calendar from '../components/Calendar/Calendar';
 
 function CardPage() {
@@ -15,10 +14,10 @@ function CardPage() {
   const [status, setStatus] = useState('');
   const [selectedDate, setSelectedDate] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [originalTask, setOriginalTask] = useState(null); 
+  const [originalTask, setOriginalTask] = useState(null);
+  const [error, setError] = useState('');
 
   const statuses = ['Без статуса', 'Нужно сделать', 'В работе', 'Тестирование', 'Готово'];
-  const topics = ['Web Design', 'Research', 'Copywriting'];
 
   useEffect(() => {
     if (id && tasks.length > 0) {
@@ -51,20 +50,55 @@ function CardPage() {
   };
 
   const handleSave = async () => {
-    const updatedTask = {
-      title,
-      topic,
-      status,
-      description,
-      date: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
-    };
-    await editTask(id, updatedTask);
-    setIsEditing(false);
+   
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
+      setError('Название задачи не может быть пустым');
+      return;
+    }
+
+   
+    if (!topic) {
+      setError('Выберите категорию задачи');
+      return;
+    }
+
+   
+    if (!status) {
+      setError('Выберите статус задачи');
+      return;
+    }
+
+   
+    if (selectedDate && isNaN(selectedDate.getTime())) {
+      setError('Укажите корректную дату');
+      return;
+    }
+
+    setError('');
+
+    try {
+      const updatedTask = {
+        title: trimmedTitle,
+        topic,
+        status,
+        description: description.trim() || '',
+        date: selectedDate ? selectedDate.toISOString() : new Date().toISOString()
+      };
+      await editTask(id, updatedTask);
+      setIsEditing(false);
+    } catch (err) {
+      setError(err.message || 'Ошибка сохранения задачи');
+    }
   };
 
   const handleDelete = async () => {
-    await removeTask(id);
-    navigate('/');
+    try {
+      await removeTask(id);
+      navigate('/');
+    } catch (err) {
+      setError(err.message || 'Ошибка удаления задачи');
+    }
   };
 
   const handleCancel = () => {
@@ -76,6 +110,7 @@ function CardPage() {
       setSelectedDate(originalTask.date);
     }
     setIsEditing(false);
+    setError('');
   };
 
   if (loading) return <div>Загрузка...</div>;
@@ -86,7 +121,8 @@ function CardPage() {
       <div className="pop-browse__container">
         <div className="pop-browse__block">
           <div className="pop-browse__content">
-            {}
+            {error && <p style={{ color: 'red', marginBottom: '15px' }}>{error}</p>}
+
             <div className="pop-browse__top-block">
               <h3 className="pop-browse__ttl">
                 {isEditing ? (
@@ -107,7 +143,6 @@ function CardPage() {
               </div>
             </div>
 
-            {}
             {isEditing ? (
               <div className="status">
                 <p className="status__p subttl">Статус</p>
@@ -135,7 +170,6 @@ function CardPage() {
               </div>
             )}
 
-            {}
             <div className="pop-browse__wrap">
               <div className="pop-browse__form form-browse">
                 <div className="form-browse__block">
@@ -164,7 +198,6 @@ function CardPage() {
               />
             </div>
 
-            {}
             <div className="pop-browse__btn-browse">
               {isEditing ? (
                 <div className="btn-group">

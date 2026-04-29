@@ -29,10 +29,12 @@ function SignUpPage() {
     e.preventDefault();
     setError('');
     
+    const trimmedName = name.trim();
+    const trimmedLogin = login.trim();
     
     const newFieldErrors = {
-      name: name.trim() === '',
-      login: login.trim() === '' || !isValidEmail(login),
+      name: trimmedName === '',
+      login: trimmedLogin === '' || !isValidEmail(trimmedLogin),
       password: password.length < 6,
     };
     setFieldErrors(newFieldErrors);
@@ -53,9 +55,9 @@ function SignUpPage() {
     setLoading(true);
 
     try {
-      const userData = await signUp({ name, login, password });
+      const userData = await signUp({ name: trimmedName, login: trimmedLogin, password });
       if (userData) {
-        authLogin(userData.token, userData.name, login);
+        authLogin(userData.token, userData.name, trimmedLogin);
         navigate('/');
       }
     } catch (err) {

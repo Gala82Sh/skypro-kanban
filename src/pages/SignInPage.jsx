@@ -18,10 +18,12 @@ function SignInPage() {
     e.preventDefault();
     setError('');
     
-   
+    const trimmedLogin = login.trim();
+    const trimmedPassword = password.trim();
+    
     const newFieldErrors = {
-      login: login.trim() === '',
-      password: password.trim() === '',
+      login: trimmedLogin === '',
+      password: trimmedPassword === '',
     };
     setFieldErrors(newFieldErrors);
     
@@ -33,9 +35,9 @@ function SignInPage() {
     setLoading(true);
 
     try {
-      const userData = await signIn({ login, password });
+      const userData = await signIn({ login: trimmedLogin, password: trimmedPassword });
       if (userData) {
-        authLogin(userData.token, userData.name, login);
+        authLogin(userData.token, userData.name, trimmedLogin);
         navigate('/');
       }
     } catch (err) {

@@ -3,6 +3,7 @@ import { fetchTasks, createTask, updateTask, deleteTask } from '../services/api'
 import { useAuth } from './AuthContext';
 
 const TasksContext = createContext();
+
 export function useTasks() {
   const context = useContext(TasksContext);
   if (!context) {
@@ -18,24 +19,26 @@ export function TasksProvider({ children }) {
   const [error, setError] = useState('');
 
   const loadTasks = useCallback(async () => {
-  try {
-    setLoading(true);
-    const tasksData = await fetchTasks(); 
-    setTasks(tasksData);
-  } catch (err) {
-    setError(err.message);
-  } finally {
-    setLoading(false);
-  }
-}, []);
+    try {
+      setLoading(true);
+      const tasksData = await fetchTasks();
+      setTasks(tasksData);
+      setError('');
+    } catch (err) {
+      setError(err.message || 'Ошибка загрузки задач. Попробуйте позже.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const addTask = async (taskData) => {
     try {
       setLoading(true);
       await createTask(taskData);
-      await loadTasks(); 
+      await loadTasks();
+      setError('');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Ошибка создания задачи. Попробуйте позже.');
     } finally {
       setLoading(false);
     }
@@ -46,8 +49,9 @@ export function TasksProvider({ children }) {
       setLoading(true);
       await updateTask(id, taskData);
       await loadTasks();
+      setError('');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Ошибка обновления задачи. Попробуйте позже.');
     } finally {
       setLoading(false);
     }
@@ -58,8 +62,9 @@ export function TasksProvider({ children }) {
       setLoading(true);
       await deleteTask(id);
       await loadTasks();
+      setError('');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Ошибка удаления задачи. Попробуйте позже.');
     } finally {
       setLoading(false);
     }

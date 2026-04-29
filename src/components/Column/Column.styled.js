@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { colors } from '../../styles/colors';
 
 export const ColumnContainer = styled.div`
-  width: 20%;
-  margin: 0 auto;
+  min-width: 200px;  
+  width: auto;
+  margin: 0 10px;
   display: block;
   
   @media screen and (max-width: 1200px) {
