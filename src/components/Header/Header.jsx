@@ -1,41 +1,79 @@
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useAuth } from "../../contexts/AuthContext";
+import { useTheme } from '../../contexts/ThemeContext';
+import {
+  StyledHeader,
+  HeaderBlock,
+  Logo,
+  Nav,
+  BtnMainNew,
+  User,
+  PopUserSet,
+  PopUserName,
+  PopUserMail,
+  PopUserTheme,
+  PopUserBtn,
+} from './Header.styled';
+
 function Header() {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const { userName, isAuth } = useAuth();
+  const { isDark, toggleTheme } = useTheme();
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
+
+  if (!isAuth) return null;
+
   return (
-    <header className="header">
+    <StyledHeader>
       <div className="container">
-        <div className="header__block">
-          <div className="header__logo _show _light">
-            <a href="/" target="_self">
-              <img src="/images/logo.png" alt="logo" />
-            </a>
-          </div>
-          <div className="header__logo _dark">
-            <a href="/" target="_self">
-              <img src="/images/logo_dark.png" alt="logo" />
-            </a>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
-            </button>
-            <a href="#user-set-target" className="header__user _hover02">
-              Ivan Ivanov
-            </a>
-            <div className="header__pop-user-set pop-user-set" id="user-set-target">
-              <p className="pop-user-set__name">Ivan Ivanov</p>
-              <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-              <div className="pop-user-set__theme">
+        <HeaderBlock>
+          {}
+          <Logo>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+              <img 
+                src="/images/Logo (1).png" 
+                alt="logo" 
+                style={{ height: '17.18px', width: 'auto' }}
+              />
+              <span className="logo-text">
+                skypro
+              </span>
+            </Link>
+          </Logo>
+
+          <Nav>
+            <BtnMainNew>
+              <Link to="/card/add">Создать новую задачу</Link>
+            </BtnMainNew>
+            <User onClick={togglePopup}>
+              {userName || 'Пользователь'}
+            </User>
+            <PopUserSet $isOpen={isPopupOpen}>
+              <PopUserName>{userName || 'Пользователь'}</PopUserName>
+              <PopUserMail>{localStorage.getItem('userEmail') || 'user@example.com'}</PopUserMail>
+              <PopUserTheme>
                 <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              <button type="button" className="_hover03">
-                <a href="#popExit">Выйти</a>
-              </button>
-            </div>
-          </nav>
-        </div>
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  name="checkbox"
+                  checked={isDark}
+                  onChange={toggleTheme}
+                />
+              </PopUserTheme>
+              <PopUserBtn>
+                <Link to="/exit">Выйти</Link>
+              </PopUserBtn>
+            </PopUserSet>
+          </Nav>
+        </HeaderBlock>
       </div>
-    </header>
-  )
+    </StyledHeader>
+  );
 }
 
-export default Header
+export default Header;

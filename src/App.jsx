@@ -1,20 +1,25 @@
-import './App.css'
-import Header from './components/Header/Header'
-import Main from './components/Main/Main'
-import PopNewCard from './components/popups/PopNewCard/PopNewCard'
-import PopBrowse from './components/popups/PopBrowse/PopBrowse'
-import PopUser from './components/popups/PopUser/PopUser'
+import { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header/Header';
+import { useTheme } from './contexts/ThemeContext';
 
 function App() {
+  const { isDark } = useTheme();
+
+  useEffect(() => {
+    if (isDark) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }, [isDark]);
+
   return (
     <div className="wrapper">
-      <PopNewCard />
-      <PopBrowse />
-      <PopUser />
       <Header />
-      <Main />
+      <Outlet />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

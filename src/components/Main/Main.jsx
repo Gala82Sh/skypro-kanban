@@ -1,27 +1,14 @@
-import Column from '../Column/Column'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { GlobalStyles } from './styles/GlobalStyles';
 
-function Main() {
-  const columns = [
-    { title: 'Без статуса' },
-    { title: 'Нужно сделать' },
-    { title: 'В работе' },
-    { title: 'Тестирование' },
-    { title: 'Готово' },
-  ]
-
-  return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
-            {columns.map((column, index) => (
-              <Column key={index} title={column.title} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </main>
-  )
-}
-
-export default Main
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <GlobalStyles />
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);

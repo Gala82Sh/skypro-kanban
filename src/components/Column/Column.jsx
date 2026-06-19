@@ -1,20 +1,23 @@
-import Card from '../Card/Card'
+import Card from '../Card/Card';
+import {
+  ColumnContainer,
+  ColumnTitle,
+  CardsContainer,
+} from './Column.styled';
 
-function Column({ title }) {
-  const cards = [1, 2, 3, 4, 5]
-
+function Column({ title, cards }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <ColumnContainer>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
-        {cards.map((item) => (
-          <Card key={item} />
+      </ColumnTitle>
+      <CardsContainer>
+        {cards.map((card, index) => (   
+          <Card key={card._id} card={card} index={index} />
         ))}
-      </div>
-    </div>
-  )
+      </CardsContainer>
+    </ColumnContainer>
+  );
 }
 
-export default Column
+export default Column;
